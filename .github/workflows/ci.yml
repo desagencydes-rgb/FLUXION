@@ -24,7 +24,9 @@ jobs:
           pip install pytest pytest-asyncio
           
       - name: Run tests
-        run: python -m pytest -v
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m pytest -v --maxfail=1
 
   frontend-build:
     runs-on: ubuntu-latest
