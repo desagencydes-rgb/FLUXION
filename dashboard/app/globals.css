@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+/* ── FLUXION Design Tokens — Dark (default) ──────────────────────── */
+:root,
+[data-theme="dark"] {
+  --color-surface: #111827;
+  --color-surface-2: #1f2937;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #3b82f6;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Semantic bg/text used by Tailwind overrides below */
+  --bg-base: #030712;
+  /* gray-950 */
+  --bg-900: #111827;
+  /* gray-900 */
+  --bg-800: #1f2937;
+  /* gray-800 */
+  --bg-700: #374151;
+  /* gray-700 */
+  --text-base: #f9fafb;
+  /* gray-50  */
+  --text-muted: #9ca3af;
+  /* gray-400 */
+}
+
+/* ── FLUXION Design Tokens — Light ─────────────────────────────── */
+[data-theme="light"] {
+  --color-surface: #f3f4f6;
+  --color-surface-2: #ffffff;
+  --color-border: rgba(0, 0, 0, 0.10);
+  --color-accent: #2563eb;
+  --color-success: #059669;
+  --color-danger: #dc2626;
+  --color-warning: #d97706;
+
+  --bg-base: #f9fafb;
+  /* near-white  */
+  --bg-900: #f3f4f6;
+  /* gray-100    */
+  --bg-800: #e5e7eb;
+  /* gray-200    */
+  --bg-700: #d1d5db;
+  /* gray-300    */
+  --text-base: #111827;
+  /* gray-900    */
+  --text-muted: #4b5563;
+  /* gray-600    */
+}
+
+/* ── Tailwind dark-class overrides by theme ─────────────────────── */
+/* These override Tailwind's hardcoded dark utilities globally.      */
+[data-theme="light"] .bg-gray-950 {
+  background-color: var(--bg-base) !important;
+}
+
+[data-theme="light"] .bg-gray-900,
+[data-theme="light"] .bg-gray-900\/60,
+[data-theme="light"] .bg-gray-900\/80 {
+  background-color: var(--bg-900) !important;
+}
+
+[data-theme="light"] .bg-gray-800,
+[data-theme="light"] .bg-gray-800\/40,
+[data-theme="light"] .bg-gray-800\/50,
+[data-theme="light"] .bg-gray-800\/60 {
+  background-color: var(--bg-800) !important;
+}
+
+[data-theme="light"] .bg-gray-700 {
+  background-color: var(--bg-700) !important;
+}
+
+[data-theme="light"] .text-white {
+  color: var(--text-base) !important;
+}
+
+[data-theme="light"] .text-gray-50 {
+  color: var(--text-base) !important;
+}
+
+[data-theme="light"] .text-gray-100 {
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #374151 !important;
+}
+
+[data-theme="light"] .text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+[data-theme="light"] .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+[data-theme="light"] .border-white\/5,
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .min-h-screen {
+  background-color: var(--bg-base) !important;
+}
+
+/* body transition for smooth switching */
+body {
+  background-color: var(--bg-base, #030712);
+  color: var(--text-base, #f9fafb);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Leaflet overrides — DARK ───────────────────────────────────── */
+[data-theme="dark"] .leaflet-container,
+.leaflet-container {
+  background: #0d1117 !important;
+  font-family: inherit !important;
+}
+
+[data-theme="dark"] .leaflet-popup-content-wrapper {
+  background: #1f2937;
+  color: #f9fafb;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .leaflet-popup-tip {
+  background: #1f2937;
+}
+
+[data-theme="dark"] .leaflet-popup-close-button {
+  color: #9ca3af !important;
+}
+
+[data-theme="dark"] .leaflet-control-zoom a {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #6b7280 !important;
+}
+
+/* ── Leaflet overrides — LIGHT ──────────────────────────────────── */
+[data-theme="light"] .leaflet-container {
+  background: #e5e7eb !important;
+}
+
+[data-theme="light"] .leaflet-popup-content-wrapper {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .leaflet-popup-tip {
+  background: #ffffff;
+}
+
+[data-theme="light"] .leaflet-popup-close-button {
+  color: #374151 !important;
+}
+
+[data-theme="light"] .leaflet-control-zoom a {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #374151 !important;
+}
+
+
+/* ── Range slider (webkit) ─────────────────────────────────────── */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.6);
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: none;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* ── Animations ────────────────────────────────────────────────── */
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2.5s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
