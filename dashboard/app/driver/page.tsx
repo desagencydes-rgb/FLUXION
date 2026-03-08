@@ -4,6 +4,7 @@ import { useSimulation } from '@/hooks/useSimulation';
 import DutyToggle from '@/components/driver/DutyToggle';
 import TourneeChecklist from '@/components/driver/TourneeChecklist';
 import ThemeToggle from '@/components/ThemeToggle';
+import Link from 'next/link';
 
 const STORAGE_KEY = 'fluxion_driver_truck_id';
 
@@ -23,16 +24,20 @@ export default function DriverPage() {
         if (saved) {
             const id = Number(saved);
             const exists = state.camions.find(c => c.id === id);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedId(exists ? id : state.camions[0].id);
             if (exists && exists.city) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setSelectedCity(exists.city);
             }
         } else {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedId(state.camions[0].id);
             const firstCity = state.camions[0].city || 'Casablanca';
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedCity(firstCity);
         }
-    }, [state.camions]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [state.camions]);
 
     const filteredCamions = state.camions.filter(c => (c.city || 'Casablanca') === selectedCity);
     const myTruck = state.camions.find(c => c.id === selectedId) ?? state.camions[0];
@@ -132,7 +137,7 @@ export default function DriverPage() {
                         </div>
                     )}
                     <ThemeToggle />
-                    <a href="/" className="text-xs text-gray-500 hover:text-white transition">Fleet →</a>
+                    <Link href="/" className="text-xs text-gray-500 hover:text-white transition">Fleet →</Link>
                 </div>
             </header>
 

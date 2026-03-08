@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { api } from '@/lib/api';
-import type { SimulationState, Zone, Camion } from '@/types/fluxion';
+import type { SimulationState, Zone } from '@/types/fluxion';
 
 const DEFAULT_STATE: SimulationState = {
     status: 'paused',
@@ -66,7 +66,8 @@ export function useSimulation(pollMs = 5000) {
 
                     if (msg.type === 'INIT') {
                         // Full state from server on first connect
-                        const { type: _t, ...stateData } = msg;
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        const { type: _type, ...stateData } = msg;
                         setState(stateData as SimulationState);
                         setLoading(false);
                         return;
@@ -124,7 +125,7 @@ export function useSimulation(pollMs = 5000) {
         } catch {
             startPolling();
         }
-    }, [fetchState, startPolling, stopPolling]);
+    }, [startPolling, stopPolling]);
 
     useEffect(() => {
         connectWS();

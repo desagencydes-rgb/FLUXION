@@ -13,10 +13,12 @@ const ThemeContext = createContext<ThemeContextValue>({ theme: 'dark', toggle: (
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState<Theme>('dark');
 
-    // Apply class on mount from localStorage
     useEffect(() => {
         const stored = (localStorage.getItem('fluxion-theme') as Theme) ?? 'dark';
-        setTheme(stored);
+        if (stored !== 'dark') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setTheme(stored);
+        }
         document.documentElement.setAttribute('data-theme', stored);
     }, []);
 

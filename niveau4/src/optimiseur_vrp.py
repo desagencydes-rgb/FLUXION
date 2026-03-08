@@ -26,7 +26,12 @@ class OptimiseurVRP:
         self.volumes = {}
         
         # Pré-calculer la matrice des distances pour accélérer les itérations de l'optimiseur
-        self.matrice_distances = self.graphe.matrice_distances(subset_ids=list(self.points_collecte.keys()))
+        # On s'assure d'inclure le dépôt (0) dans la matrice même s'il n'est pas dans points_collecte
+        subset_ids = list(self.points_collecte.keys())
+        if 0 not in self.points_collecte:
+            subset_ids.append(0)
+            
+        self.matrice_distances = self.graphe.matrice_distances(subset_ids=subset_ids)
         self.graphe.matrice = self.matrice_distances
 
     def construire_solution_initiale(self) -> list:

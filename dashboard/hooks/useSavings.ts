@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import type { SavingsMetrics } from '@/types/fluxion';
 
@@ -10,18 +10,24 @@ export function useSavings(pollMs = 5000) {
     const [history, setHistory] = useState<SavingsMetrics[]>([ZERO]);
     const [loading, setLoading] = useState(true);
 
-    const fetch = useCallback(async () => {
-        const data = await api.getSavings();
-        setSavings(data);
-        setHistory(prev => [...prev.slice(-59), data]); // rolling 60-point window
-        setLoading(false);
-    }, []);
-
     useEffect(() => {
-        fetch();
-        const id = setInterval(fetch, pollMs);
-        return () => clearInterval(id);
-    }, [fetch, pollMs]);
+        let isMounted = true;
+        const doFetch = async () => {
+            const data = await api.getSavings();
+            if (isMounted) {
+                setSavings(data);
+                setHistory(prev => [...prev.slice(-59), data]);
+                setLoading(false);
+            }
+        };
+
+        doFetch();
+        const id = setInterval(doFetch, pollMs);
+        return () => {
+            isMounted = false;
+            clearInterval(id);
+        };
+    }, [pollMs]);
 
     return { savings, history, loading };
 }

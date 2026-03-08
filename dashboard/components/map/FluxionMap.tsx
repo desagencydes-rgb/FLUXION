@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState, useCallback } from 'react';
-import type { SimulationState, Zone } from '@/types/fluxion';
+import type { SimulationState } from '@/types/fluxion';
 import { FILL_COLORS, getFillStatus, POINT_TYPE_ICONS } from '@/types/fluxion';
 
 interface FluxionMapProps {
@@ -58,13 +58,13 @@ export default function FluxionMap({ state, currentCity }: FluxionMapProps) {
         };
 
         init();
+        const currentMarkers = truckMarkersRef.current;
         return () => {
             mapRef.current?.remove();
             mapRef.current = null;
-            truckMarkersRef.current.clear();
+            currentMarkers.clear();
             hasInitFitRef.current = false;
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // ── Tile toggle ───────────────────────────────────────────────────────────
@@ -123,7 +123,6 @@ export default function FluxionMap({ state, currentCity }: FluxionMapProps) {
                 specialMarkersRef.current.push(rm);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.depot, state.refuel_points, makeDivIcon]);
 
     // ── Draw zone / bin markers ───────────────────────────────────────────────

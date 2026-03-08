@@ -116,22 +116,25 @@ class GrapheRoutier:
         matrice = osrm_matrice_distances(points_gps)
         return matrice
 
-    def matrice_distances(self) -> list:
+    def matrice_distances(self, subset_ids: list = None) -> dict:
         """
-        Génère une matrice complète des distances (n x n) entre tous les sommets.
+        Génère une matrice des distances entre les sommets spécifiés.
         
+        Args:
+            subset_ids (list): Liste des IDs de sommets à inclure. Si None, tous les sommets.
+            
         Returns:
-            list: Liste de listes contenant les distances n x n.
+            dict: Dictionnaire imbriqué {id1: {id2: distance, ...}, ...}.
         """
-        ids_tries = sorted(self.sommets.keys())
-        n = len(ids_tries)
-        matrice = [[0.0] * n for _ in range(n)]
+        target_ids = subset_ids if subset_ids is not None else sorted(self.sommets.keys())
+        matrice = {}
 
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    matrice[i][j] = 0.0
+        for id1 in target_ids:
+            matrice[id1] = {}
+            for id2 in target_ids:
+                if id1 == id2:
+                    matrice[id1][id2] = 0.0
                 else:
-                    dist, _ = self.plus_court_chemin(ids_tries[i], ids_tries[j])
-                    matrice[i][j] = dist if dist != float('inf') else float('inf')
+                    dist, _ = self.plus_court_chemin(id1, id2)
+                    matrice[id1][id2] = dist if dist != float('inf') else float('inf')
         return matrice

@@ -18,7 +18,7 @@ const LEVELS = [
 ];
 
 export default function AdminPage() {
-    const { state: liveState } = useSimulation(5000);
+    useSimulation(5000); // Maintain background activity
     const [config, setConfig] = useState<Config | null>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
