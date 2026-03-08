@@ -120,5 +120,17 @@ This spawns 5 services: **PostgreSQL**, **Simulation API**, **Live Bridge**, **D
 
 ---
 
+## 📚 Deep Dive Documentation
+
+For a comprehensive technical understanding of the FLUXION engine and its UI, refer to the newly published manuals:
+
+- 🏗️ **[Architectural Overview](docs/ARCHITECTURE.md)**: Design philosophy, 5-Level algorithmic evolution, and data flow.
+- ⚙️ **[Backend Technical Manual](docs/BACKEND.md)**: Python simulation, VRP heuristics (Tabu Search, 2-Opt), and WebSocket async architecture.
+- 🎨 **[Frontend Technical Manual](docs/FRONTEND.md)**: Next.js App Router, real-time hooks, Map filtering, and UI theming.
+- 📊 **[Data Layer Specification](docs/DATA_LAYER.md)**: Geo-scaling strategy, coordinate normalization, and dataset ingestion.
+- 🚀 **[Deployment Guide](docs/DEPLOYMENT.md)**: Step-by-step instructions for running the distributed stack in production via Docker Compose.
+
+---
+
 ## 📜 License
 This project is licensed under the **MIT License**.
