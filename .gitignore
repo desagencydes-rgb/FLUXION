@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+.env
+
+# Environment files (keep example, not secrets)
+.env
+!.env.example
+
+# Node / Next.js
+dashboard/node_modules/
+dashboard/.next/
+dashboard/out/
+dashboard/.turbo/
+
+# Database
+*.db
+*.sqlite
+pgdata/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Test cache
+.pytest_cache/
+
+# Docker volumes
+pgdata/
+
+# PDF source (large binary)
+projetFM.pdf

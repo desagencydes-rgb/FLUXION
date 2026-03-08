@@ -1,0 +1,21 @@
+{
+    "configuration_vrp": {
+        "nombre_camions": 2,
+        "strategie_construction": "plus_proche_voisin",
+        "methode_amelioration": "2opt",
+        "critere_arret": {
+            "iterations": 100,
+            "stagnation": 10
+        }
+    },
+    "points_detail": [
+        {
+            "id": 1,
+            "type": "conteneur",
+            "capacite": 120
+        }
+    ],
+    "parametres_optimisation": {
+        "poids_distance": 1.0
+    }
+}

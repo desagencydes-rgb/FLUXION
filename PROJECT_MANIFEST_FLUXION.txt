@@ -1,0 +1,116 @@
+This is a comprehensive "Master Project Blueprint" for **FLUXION**, designed to be used as a reference for your AI development agents. It synthesizes the technical requirements from the "Cahier des Charges," your handwritten feature expansions, and the multi-model execution strategy.
+
+---
+
+# PROJECT MANIFEST: FLUXION (SaaS)
+
+### 1. Core Identity & Strategy
+
+* 
+**Project Name:** FLUXION (Evolution of "Ville Propre").
+
+
+* 
+**Objective:** Transform a 5-level algorithmic waste management project into a professional, real-world SaaS solution for municipalities and private organizations like Antigravity.
+
+
+* **Budget:** $0.00 (Strictly using open-source tools and free-tier APIs).
+* **Target Stack:** FastAPI/Python (Optimization), Next.js (Frontend), PostgreSQL (Database), Vercel/Render (Hosting).
+
+### 2. The Algorithmic Engine (Ref: projetFM.pdf)
+
+The system is built on five progressive levels of complexity:
+
+* 
+**Level 1: Road Network:** Models the city as a graph $G=(V,E)$. Uses **Dijkstra’s algorithm** to calculate optimal distances and generate an $n \times n$ distance matrix.
+
+
+* 
+**Level 2: Fleet Assignment:** Uses **Bipartite Graphs** to match trucks to collection zones. Includes load-balancing to ensure workload deviation is $< 20\%$.
+
+
+* 
+**Level 3: Temporal Planning:** Models a **Tripartite Graph** (Trucks $\leftrightarrow$ Zones $\leftrightarrow$ Time-Slots). Manages night-time bans, driver breaks, and traffic congestion.
+
+
+* 
+**Level 4: VRP Optimization:** Solves the **Vehicle Routing Problem** using **2-opt** for local path untangling and **Tabu Search** for global optimization.
+
+
+* 
+**Level 5: Dynamic Brain:** Uses **NSGA-II** for multi-objective optimization (Cost, CO2, Satisfaction, Equity). Handles real-time incidents and IoT-simulated bin levels.
+
+
+
+### 3. Live Data & "Sense" Integration
+
+To achieve "Real-World" status without a budget, FLUXION bypasses static JSON files for live feeds:
+
+* 
+**Network Ingestion:** Uses **Overpass API (OSM)** to fetch live coordinates for trash bins, recycling centers, and road nodes.
+
+
+* **Business POIs:** Uses **Geoapify Places API** (Free Tier) to fetch high-priority stops like restaurants, pharmacies, and hotels.
+* **Logistics Points:** Dynamic fetching of **Refueling Stations** (`amenity=fuel`) and **Deposit Depots** via OSM.
+* **Truck Tracking:** Uses the **Traccar Client** open-source protocol to stream live GPS from driver smartphones directly to the backend.
+
+### 4. SaaS Features & Interaction Layer
+
+* **Role-Based Access Control (RBAC):**
+* **Super Admin:** Global system management and multi-tenancy logs.
+* 
+**Fleet Manager:** Accesses the Dashboard, adjusts NSGA-II weight sliders, and triggers emergency re-planning.
+
+
+* 
+**Driver:** Mobile-responsive view with a "Duty Start" toggle, GPS heartbeat, and ordered collection checklist.
+
+
+
+
+* **The Fleet Manager Dashboard:**
+* **Live Tactical Map:** Leaflet.js map with a satellite view toggle (Esri World Imagery).
+* 
+**ROI Tickers:** Real-time calculation of Money Saved, Fuel Saved, and CO2 Reduced based on Level 4/5 performance data.
+
+
+* 
+**Incident Simulator:** Manual trigger for truck breakdowns to test system resilience.
+
+
+
+
+
+### 5. Multi-Model Agent Execution Plan (24h Sprint)
+
+To ensure a bug-free delivery, tasks are assigned to specific models based on their high-integrity performance:
+
+| Agent | Task | Focus |
+| --- | --- | --- |
+| **Claude 4.6 Opus** | **Lead Architect** | **Logic Bridge**: Live API integration (Overpass/Geoapify), RBAC security, and NSGA-II refinement. |
+| **Claude 4.6 Sonnet** | **UI Engineer** | **Next.js Frontend**: Dashboard, Leaflet.js satellite maps, and Driver Companion interface. |
+| **Gemini 3.1 Pro** | **Data Architect** | **Persistence**: PostgreSQL Schema design and static `constants.py` files. |
+| **Gemini 3 Flash** | **QA & Docs** | **Validation**: Unit tests for Levels 1-5, README.md, and Docker/Vercel deployment configs. |
+
+### 6. Critical Operational Questions (Verification)
+
+The agents must ensure the system answers these questions correctly:
+
+* 
+**Connectivity:** Is the graph connected so all points are reachable? 
+
+
+* 
+**Symmetry:** How are one-way streets handled in the directed graph? 
+
+
+* 
+**Capacity:** What happens when waste volume exceeds total fleet capacity? 
+
+
+* 
+**Timing:** How are overlapping schedules and traffic spikes managed? 
+
+
+* 
+**Resilience:** How quickly can the system re-plan after a truck breakdown ($< 2$ minutes target)?

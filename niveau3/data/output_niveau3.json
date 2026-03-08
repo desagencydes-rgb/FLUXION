@@ -1,0 +1,54 @@
+{
+    "planification_hebdomadaire": {
+        "lundi": [
+            {
+                "camion_id": 1,
+                "zone_id": 1,
+                "creneau": {
+                    "id": 1,
+                    "debut": "08:00",
+                    "fin": "10:00",
+                    "jour": "lundi",
+                    "niveau_congestion": 1.2
+                },
+                "taches": [],
+                "duree_totale": 120.0,
+                "retard_estime": 0
+            },
+            {
+                "camion_id": 1,
+                "zone_id": 3,
+                "creneau": {
+                    "id": 2,
+                    "debut": "10:00",
+                    "fin": "12:00",
+                    "jour": "lundi",
+                    "niveau_congestion": 1.0
+                },
+                "taches": [],
+                "duree_totale": 120.0,
+                "retard_estime": 0
+            },
+            {
+                "camion_id": 2,
+                "zone_id": 2,
+                "creneau": {
+                    "id": 1,
+                    "debut": "08:00",
+                    "fin": "10:00",
+                    "jour": "lundi",
+                    "niveau_congestion": 1.2
+                },
+                "taches": [],
+                "duree_totale": 120.0,
+                "retard_estime": 0
+            }
+        ]
+    },
+    "indicateurs": {
+        "taux_occupation": 85.3,
+        "respect_horaires": 92.1,
+        "congestion_moyenne": 1.15,
+        "retard_moyen": 0.0
+    }
+}

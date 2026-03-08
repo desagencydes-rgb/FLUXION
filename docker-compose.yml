@@ -1,0 +1,80 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: fluxion_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fluxion
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fluxion_api
+    restart: unless-stopped
+    command: >
+      bash -c "alembic upgrade head && python -m niveau5.src.api"
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/fluxion
+      - CORS_ORIGINS=http://localhost,http://localhost:80
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fluxion_bridge
+    restart: unless-stopped
+    command: python -m live_bridge.api_bridge
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/fluxion
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: fluxion_dashboard
+    restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_SIM_API_URL=http://localhost/api
+      - NEXT_PUBLIC_BRIDGE_API_URL=http://localhost/live
+    expose:
+      - "3000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: fluxion_gateway
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - bridge
+      - dashboard
+
+volumes:
+  pgdata:
+
+

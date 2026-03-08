@@ -1,0 +1,239 @@
+{
+    "depot": {
+        "id": 0,
+        "x": 0,
+        "y": 0,
+        "nom": "Centre de Traitement Médiouna",
+        "lat": 33.4489,
+        "lon": -7.5133
+    },
+    "points_collecte": [
+        {
+            "id": 1,
+            "x": 2.5,
+            "y": 3.1,
+            "nom": "Maarif",
+            "lat": 33.5731,
+            "lon": -7.6298
+        },
+        {
+            "id": 2,
+            "x": 5.2,
+            "y": 4.8,
+            "nom": "Ain Diab",
+            "lat": 33.5950,
+            "lon": -7.6687
+        },
+        {
+            "id": 3,
+            "x": 7.8,
+            "y": 1.2,
+            "nom": "Hay Hassani",
+            "lat": 33.5600,
+            "lon": -7.6800
+        },
+        {
+            "id": 4,
+            "x": 3.0,
+            "y": 6.0,
+            "nom": "Anfa",
+            "lat": 33.5850,
+            "lon": -7.6350
+        },
+        {
+            "id": 5,
+            "x": 8.5,
+            "y": 5.5,
+            "nom": "Sidi Belyout",
+            "lat": 33.5950,
+            "lon": -7.6120
+        },
+        {
+            "id": 6,
+            "x": 1.0,
+            "y": 8.0,
+            "nom": "Bourgogne",
+            "lat": 33.5880,
+            "lon": -7.6250
+        },
+        {
+            "id": 7,
+            "x": 6.0,
+            "y": 2.0,
+            "nom": "Oasis",
+            "lat": 33.5650,
+            "lon": -7.6400
+        },
+        {
+            "id": 8,
+            "x": 4.0,
+            "y": 7.5,
+            "nom": "Racine",
+            "lat": 33.5900,
+            "lon": -7.6350
+        },
+        {
+            "id": 9,
+            "x": 9.0,
+            "y": 3.0,
+            "nom": "Habous",
+            "lat": 33.5800,
+            "lon": -7.6050
+        },
+        {
+            "id": 10,
+            "x": 2.0,
+            "y": 5.0,
+            "nom": "Gauthier",
+            "lat": 33.5870,
+            "lon": -7.6200
+        },
+        {
+            "id": 11,
+            "x": 7.0,
+            "y": 8.0,
+            "nom": "Palmier",
+            "lat": 33.5700,
+            "lon": -7.6150
+        },
+        {
+            "id": 12,
+            "x": 5.0,
+            "y": 1.0,
+            "nom": "Derb Sultan",
+            "lat": 33.5750,
+            "lon": -7.5950
+        },
+        {
+            "id": 13,
+            "x": 3.5,
+            "y": 4.0,
+            "nom": "Beausejour",
+            "lat": 33.5800,
+            "lon": -7.6450
+        },
+        {
+            "id": 14,
+            "x": 8.0,
+            "y": 6.5,
+            "nom": "Bd Zerktouni",
+            "lat": 33.5830,
+            "lon": -7.6300
+        },
+        {
+            "id": 15,
+            "x": 6.5,
+            "y": 9.0,
+            "nom": "Casa Port",
+            "lat": 33.6020,
+            "lon": -7.6150
+        }
+    ],
+    "connexions": [
+        {
+            "depart": 0,
+            "arrivee": 1,
+            "distance": null
+        },
+        {
+            "depart": 0,
+            "arrivee": 12,
+            "distance": null
+        },
+        {
+            "depart": 1,
+            "arrivee": 2,
+            "distance": null
+        },
+        {
+            "depart": 1,
+            "arrivee": 4,
+            "distance": null
+        },
+        {
+            "depart": 1,
+            "arrivee": 13,
+            "distance": null
+        },
+        {
+            "depart": 2,
+            "arrivee": 3,
+            "distance": null
+        },
+        {
+            "depart": 3,
+            "arrivee": 7,
+            "distance": null
+        },
+        {
+            "depart": 4,
+            "arrivee": 6,
+            "distance": null
+        },
+        {
+            "depart": 4,
+            "arrivee": 8,
+            "distance": null
+        },
+        {
+            "depart": 5,
+            "arrivee": 9,
+            "distance": null
+        },
+        {
+            "depart": 5,
+            "arrivee": 14,
+            "distance": null
+        },
+        {
+            "depart": 6,
+            "arrivee": 10,
+            "distance": null
+        },
+        {
+            "depart": 7,
+            "arrivee": 3,
+            "distance": null
+        },
+        {
+            "depart": 8,
+            "arrivee": 10,
+            "distance": null
+        },
+        {
+            "depart": 9,
+            "arrivee": 12,
+            "distance": null
+        },
+        {
+            "depart": 10,
+            "arrivee": 13,
+            "distance": null
+        },
+        {
+            "depart": 11,
+            "arrivee": 14,
+            "distance": null
+        },
+        {
+            "depart": 11,
+            "arrivee": 15,
+            "distance": null
+        },
+        {
+            "depart": 12,
+            "arrivee": 9,
+            "distance": null
+        },
+        {
+            "depart": 13,
+            "arrivee": 7,
+            "distance": null
+        },
+        {
+            "depart": 14,
+            "arrivee": 15,
+            "distance": null
+        }
+    ]
+}

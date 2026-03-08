@@ -1,0 +1,29 @@
+{
+    "affectation": [
+        {
+            "camion_id": 1,
+            "zones_affectees": [
+                1,
+                3
+            ],
+            "charge_totale": 2000,
+            "cout_estime": 200,
+            "pourcentage_utilisation": 40.0
+        },
+        {
+            "camion_id": 2,
+            "zones_affectees": [
+                2
+            ],
+            "charge_totale": 3000,
+            "cout_estime": 180,
+            "pourcentage_utilisation": 75.0
+        }
+    ],
+    "statistiques": {
+        "nombre_camions_utilises": 2,
+        "charge_moyenne": 2500,
+        "ecart_type_charge": 707.1,
+        "zones_non_affectees": []
+    }
+}

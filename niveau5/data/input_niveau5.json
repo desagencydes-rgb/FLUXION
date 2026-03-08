@@ -1,0 +1,13 @@
+{
+    "simulation": {
+        "duree_totale": 60,
+        "pas_temps": 15,
+        "frequence_capteurs": 5
+    },
+    "configuration_iot": {
+        "seuils_alerte": {
+            "niveau": 90,
+            "trafic": 80
+        }
+    }
+}
