@@ -4,6 +4,7 @@ Full-featured: truck movement, duty management, zone collection,
 CSV/Excel import, multi-type points, VRP at scale, real metrics.
 """
 from fastapi import FastAPI, WebSocket, HTTPException, UploadFile, File, Request
+import httpx
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -1208,6 +1209,43 @@ async def startup_event():
     recalculate_routes()
     asyncio.create_task(background_simulation_loop())
     logger.info("FLUXION API v2 started — all systems nominal")
+
+
+
+
+# ── OSRM Road-Snapping Proxy ─────────────────────────────────────────────────
+
+@app.get("/api/route")
+async def get_road_route(coords: str):
+    """
+    Proxy OSRM routing to avoid browser CORS + rate-limit issues.
+    coords: semicolon-separated 'lon,lat' pairs (OSRM expects lon,lat order).
+    Returns: { geometry: [[lat, lon], ...] }
+    """
+    osrm_url = f"http://router.project-osrm.org/route/v1/driving/{coords}"
+    params = {"overview": "full", "geometries": "geojson", "steps": "false"}
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(osrm_url, params=params)
+            data = resp.json()
+
+        if data.get("code") != "Ok" or not data.get("routes"):
+            raise ValueError("OSRM returned no valid route")
+
+        # OSRM GeoJSON coords are [lon, lat] — flip to [lat, lon] for Leaflet
+        geojson_coords = data["routes"][0]["geometry"]["coordinates"]
+        leaflet_coords = [[c[1], c[0]] for c in geojson_coords]
+        return {"geometry": leaflet_coords, "source": "osrm"}
+
+    except Exception as e:
+        logger.warning(f"OSRM proxy fallback triggered: {e}")
+        # Fall back: parse the raw coords and return straight-line points
+        try:
+            pairs = coords.split(";")
+            fallback = [[float(p.split(",")[1]), float(p.split(",")[0])] for p in pairs]
+        except Exception:
+            fallback = []
+        return {"geometry": fallback, "source": "fallback"}
 
 
 if __name__ == "__main__":

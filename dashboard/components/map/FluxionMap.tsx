@@ -222,51 +222,80 @@ export default function FluxionMap({ state, currentCity }: FluxionMapProps) {
         });
     }, [state.camions]);
 
-    // ── Draw route polylines ──────────────────────────────────────────────────
+    // ── Draw route polylines (road-snapped via OSRM proxy) ────────────────────
     useEffect(() => {
         if (!mapRef.current || !leafletRef.current) return;
         const L = leafletRef.current;
+        const map = mapRef.current;
 
         routeLinesRef.current.forEach(r => r.remove());
         routeLinesRef.current = [];
 
-        if (!showRoutes) return;
+        if (!showRoutes || !state.routes?.length) return;
 
-        (state.routes ?? []).forEach((route, i) => {
-            if (!route.points?.length) return;
+        const WS_BASE = process.env.NEXT_PUBLIC_WS_URL
+            ? process.env.NEXT_PUBLIC_WS_URL.replace(/^ws/, 'http').replace('/ws', '')
+            : 'http://localhost:8000';
 
-            const latlngs = route.points.map(p => {
-                // Use lat/lon directly if available (preferred), else convert from x/y
-                const lat = p.lat ?? (p.y / 100);
-                const lon = p.lon ?? (p.x / 100);
-                return [lat, lon] as [number, number];
+        // Fetch all routes in parallel, then draw
+        const fetchAndDraw = async () => {
+            const promises = (state.routes ?? []).map(async (route, i) => {
+                if (!route.points?.length || route.points.length < 2) return;
+
+                const color = TRUCK_COLORS[i % TRUCK_COLORS.length];
+
+                // Build raw latlng list for the straight-line fallback
+                const rawLatLngs = route.points.map(p => {
+                    const lat = p.lat ?? (p.y / 100);
+                    const lon = p.lon ?? (p.x / 100);
+                    return [lat, lon] as [number, number];
+                });
+
+                // Build OSRM-format coord string: "lon,lat;lon,lat;..."
+                const osrmCoords = rawLatLngs.map(([lat, lon]) => `${lon},${lat}`).join(';');
+
+                let drawCoords: [number, number][] = rawLatLngs;
+
+                try {
+                    const resp = await fetch(`${WS_BASE}/api/route?coords=${encodeURIComponent(osrmCoords)}`);
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        if (Array.isArray(data.geometry) && data.geometry.length >= 2) {
+                            drawCoords = data.geometry as [number, number][];
+                        }
+                    }
+                } catch {
+                    // silently fall back to straight lines
+                }
+
+                if (!mapRef.current) return; // map may have unmounted
+
+                const line = L.polyline(drawCoords, {
+                    color,
+                    weight: 4,
+                    opacity: 0.85,
+                    dashArray: undefined, // solid line now — it's a real road path
+                }).addTo(map);
+
+                const lastPt = drawCoords[drawCoords.length - 1];
+                L.marker(lastPt, {
+                    icon: L.divIcon({
+                        html: `<div style="color:${color};font-size:16px;transform:rotate(-45deg);">➤</div>`,
+                        className: '',
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10],
+                    }),
+                    zIndexOffset: 500,
+                }).bindTooltip(`Truck ${route.camion_id} — ${route.distance_km?.toFixed(1) ?? '?'} km`)
+                    .addTo(map);
+
+                routeLinesRef.current.push(line);
             });
 
-            if (latlngs.length < 2) return;
+            await Promise.all(promises);
+        };
 
-            const color = TRUCK_COLORS[i % TRUCK_COLORS.length];
-            const line = L.polyline(latlngs, {
-                color,
-                weight: 4,
-                opacity: 0.85,
-                dashArray: '8 5',
-            }).addTo(mapRef.current!);
-
-            // Arrow decorations for direction (endpoints)
-            const lastPt = latlngs[latlngs.length - 1];
-            L.marker(lastPt, {
-                icon: L.divIcon({
-                    html: `<div style="color:${color};font-size:16px;transform:rotate(-45deg);">➤</div>`,
-                    className: '',
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10],
-                }),
-                zIndexOffset: 500,
-            }).bindTooltip(`Truck ${route.camion_id} — ${route.distance_km?.toFixed(1) ?? '?'} km`)
-                .addTo(mapRef.current!);
-
-            routeLinesRef.current.push(line);
-        });
+        fetchAndDraw();
     }, [state.routes, showRoutes]);
 
     return (
