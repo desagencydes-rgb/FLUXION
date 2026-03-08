@@ -26,7 +26,16 @@ jobs:
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: python -m pytest -v --maxfail=1
+        run: python -m pytest -v --maxfail=1 > pytest_error.log 2>&1 || true
+        
+      - name: Exfiltrate log on default failure
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add pytest_error.log
+          git commit -m "ci: upload pytest_error.log for debugging"
+          git push
+          exit 1
 
   frontend-build:
     runs-on: ubuntu-latest
