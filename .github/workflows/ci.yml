@@ -30,14 +30,7 @@ jobs:
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: python -m pytest -v --maxfail=1 > pytest_error.log 2>&1 || true
-        
-      - name: Exfiltrate log on default failure
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh issue create --title "CI Log $(date +%s)" --body-file pytest_error.log || echo "Failed to create issue"
-          exit 1
+        run: python -m pytest -v --maxfail=1
 
   frontend-build:
     runs-on: ubuntu-latest
