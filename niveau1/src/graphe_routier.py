@@ -2,7 +2,6 @@
 Implémentation d'un graphe routier pour le calcul des distances et des plus courts chemins.
 Utilise l'algorithme de Dijkstra (avec heapq) pour l'optimisation des parcours.
 """
-from typing import Dict, List, Tuple
 import heapq
 from commun.geo_utils import osrm_matrice_distances
 from niveau1.src.point_collecte import PointCollecte

@@ -1,12 +1,10 @@
 from niveau5.src.simulation import SimulateurTempsReel
-from niveau5.src.optimiseur_mo import OptimiseurMultiObjectif
 from niveau5.src.dashboard import DashboardTempsReel
-from niveau4.src.optimiseur_vrp import OptimiseurVRP
 from niveau1.src.point_collecte import PointCollecte
 from niveau1.src.graphe_routier import GrapheRoutier
 from niveau2.src.camion import Camion
 from niveau2.src.zone import Zone
-from commun.parseur_json import charger_json, sauvegarder_json
+from commun.parseur_json import charger_json
 import os
 import sys
 
@@ -14,9 +12,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 def main():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    input_path = os.path.join(base_dir, "data", "input_niveau5.json")
-    output_path = os.path.join(base_dir, "data", "output_niveau5.json")
-    
     # CHARGEMENT DONNEES
     # On va réutiliser les données niveau 2 pour zones/camions
     input2_path = os.path.join(os.path.dirname(base_dir), "niveau2", "data", "input_niveau2.json")

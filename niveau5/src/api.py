@@ -3,7 +3,8 @@ FLUXION Simulation API — v2.0
 Full-featured: truck movement, duty management, zone collection,
 CSV/Excel import, multi-type points, VRP at scale, real metrics.
 """
-from fastapi import FastAPI, WebSocket, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, WebSocket, HTTPException, UploadFile, File, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import asyncio
@@ -12,14 +13,12 @@ import sys
 import io
 import math
 import random
-import copy
 import logging
 from typing import List, Optional, Dict, Any
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from niveau5.src.simulation import SimulateurTempsReel
-from niveau1.src.graphe_routier import GrapheRoutier
 from niveau1.src.point_collecte import PointCollecte
 from niveau2.src.camion import Camion
 from niveau2.src.zone import Zone
@@ -61,8 +60,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from fastapi import Request
-from fastapi.responses import JSONResponse
+
+# Remove duplicate imports that were moved up
 
 
 @app.middleware("http")
@@ -198,7 +197,7 @@ def init_simulation():
             zones = [Zone.from_dict(z) for z in data2["zones"]]
             camions = [Camion.from_dict(c) for c in data2["camions"]]
             logger.info(f"Loaded {len(zones)} zones, {len(camions)} trucks from JSON config")
-        except (FileNotFoundError, Exception) as e:
+        except (FileNotFoundError, Exception):
             # Default demo setup: 12 zones, 3 trucks
             zones = []
             for i in range(1, 13):
@@ -302,7 +301,8 @@ class MockGrapheRoutier:
     def calcul_distance(self, p1_id, p2_id):
         p1 = self.recuperer_point(p1_id)
         p2 = self.recuperer_point(p2_id)
-        if not p1 or not p2: return 9999.0
+        if not p1 or not p2:
+            return 9999.0
         # Extrapolate back to lat/lon
         lat1, lon1 = p1.y / 100.0, p1.x / 100.0
         lat2, lon2 = p2.y / 100.0, p2.x / 100.0
@@ -1010,7 +1010,6 @@ async def import_collection_points(file: UploadFile = File(...)):
     Required columns: id, lat, lon
     Optional: name, type, volume_l, priority, open_hour, close_hour
     """
-    import pandas as pd
     global simulation_instance, zone_collection
 
     if not file.filename or not (file.filename.endswith((".csv", ".xlsx", ".xls"))):

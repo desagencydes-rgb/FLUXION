@@ -1,7 +1,7 @@
 """
 Définit la classe CreneauHoraire représentant une période de temps pour la collecte.
 """
-from datetime import datetime, timedelta
+from datetime import datetime
 
 class CreneauHoraire:
     """

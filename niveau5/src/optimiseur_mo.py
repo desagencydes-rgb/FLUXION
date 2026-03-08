@@ -3,7 +3,6 @@ Optimiseur Multi-Objectif utilisant une version simplifiée de NSGA-II.
 Objectifs: minimiser distance, minimiser CO2, maximiser équité.
 """
 from niveau4.src.optimiseur_vrp import OptimiseurVRP
-from niveau4.src.tournee import Tournee
 from commun.constantes import CONSOMMATION_L_PAR_KM, CO2_KG_PAR_LITRE, SEUIL_AVERTISSEMENT
 import copy
 import random

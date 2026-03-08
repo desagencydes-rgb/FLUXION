@@ -3,7 +3,7 @@ FLUXION — Multi-Tenancy Query Helpers
 Provides async SQLAlchemy queries automatically filtered by organization_id.
 """
 from typing import List, Optional
-from sqlalchemy import select, desc
+from sqlalchemy import select
 from datetime import date, timedelta
 
 from commun.database import (
@@ -26,7 +26,7 @@ async def get_trucks(org_id: int) -> List[CamionDB]:
     async with async_session() as session:
         stmt = select(CamionDB).where(
             CamionDB.organization_id == org_id,
-            CamionDB.is_active == True
+            CamionDB.is_active
         )
         result = await session.execute(stmt)
         return list(result.scalars().all())
@@ -36,7 +36,7 @@ async def get_collection_points(org_id: int) -> List[PointCollecteDB]:
     async with async_session() as session:
         stmt = select(PointCollecteDB).where(
             PointCollecteDB.organization_id == org_id,
-            PointCollecteDB.is_active == True
+            PointCollecteDB.is_active
         )
         result = await session.execute(stmt)
         return list(result.scalars().all())

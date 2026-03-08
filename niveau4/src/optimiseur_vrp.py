@@ -3,7 +3,6 @@ Optimiseur VRP (Vehicle Routing Problem).
 Utilise des méta-heuristiques pour minimiser la distance totale de collecte.
 """
 from niveau4.src.tournee import Tournee
-import random
 import copy
 
 class OptimiseurVRP:
@@ -43,7 +42,8 @@ class OptimiseurVRP:
             list: Liste des objets Tournee créés.
         """
         points_a_visiter = set(self.points_collecte.keys())
-        if 0 in points_a_visiter: points_a_visiter.remove(0) # Le dépôt (0) est géré à part
+        if 0 in points_a_visiter:
+            points_a_visiter.remove(0) # Le dépôt (0) est géré à part
         
         tournees = []
         for c in self.camions:
@@ -104,7 +104,8 @@ class OptimiseurVRP:
         """
         points = tournee.points_ids
         n = len(points)
-        if n < 4: return tournee # Pas de permutation possible avec moins de 2 points intermédiaires
+        if n < 4:
+            return tournee # Pas de permutation possible avec moins de 2 points intermédiaires
         
         best_points = points[:]
         best_dist = tournee.calculer_distance(self.graphe)
@@ -115,7 +116,8 @@ class OptimiseurVRP:
             # On parcourt toutes les paires possibles de segments à "décroiser"
             for i in range(1, n - 1):
                 for j in range(i + 1, n - 1):
-                    if j - i == 0: continue
+                    if j - i == 0:
+                        continue
                     
                     # Application du swap 2-opt : inversion de l'ordre des points entre i et j
                     new_points = best_points[:]
@@ -130,7 +132,8 @@ class OptimiseurVRP:
                         best_points = new_points
                         improved = True
                         break 
-                if improved: break
+                if improved:
+                    break
                         
         tournee.points_ids = best_points
         return tournee
@@ -147,7 +150,6 @@ class OptimiseurVRP:
         for t in self.tournees:
             self.algorithme_2opt(t)
         
-        import copy
         meilleure_solution = copy.deepcopy(self.tournees)
         meilleur_cout = sum(t.calculer_distance(self.graphe) for t in meilleure_solution)
         

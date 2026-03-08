@@ -28,9 +28,9 @@ if db_url:
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+from commun.database import Base # noqa: E402
 # add your model's MetaData object here
 # for 'autogenerate' support
-from commun.database import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

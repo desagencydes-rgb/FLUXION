@@ -7,14 +7,14 @@ If DATABASE_URL is not set, falls back to SQLite for local development.
 import os
 import json
 import enum
+import sqlite3
 from datetime import datetime, date
 from typing import Optional, List
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from sqlalchemy import (
-    String, Boolean, Text, Integer, Float, Date, Enum,
-    ForeignKey, Index, func, select, desc
+    String, Boolean, Text, Integer, Float, Date, ForeignKey, Index, func, select, desc
 )
 from sqlalchemy.orm import (
     DeclarativeBase, Mapped, mapped_column, relationship
@@ -243,8 +243,6 @@ async def charger_derniers_evenements(limite: int = 50) -> list:
 
 # ── Synchronous Fallback (for non-async callers) ────────────────────────────
 # Keeps backward compatibility with existing sync code that calls these.
-
-import sqlite3
 
 _SYNC_DB_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data.db"

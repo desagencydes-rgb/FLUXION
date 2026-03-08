@@ -2,7 +2,7 @@
 GPS Snapping — maps live driver GPS coordinates to the nearest vertex in the GrapheRoutier.
 Used for Traccar driver heartbeats to position trucks on the road network graph.
 """
-from typing import Optional, Tuple
+from typing import Tuple
 from commun.geo_utils import haversine
 from niveau1.src.graphe_routier import GrapheRoutier
 

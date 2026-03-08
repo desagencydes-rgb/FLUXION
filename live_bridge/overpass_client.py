@@ -4,7 +4,7 @@ Queries OpenStreetMap for waste baskets, recycling centers, and fuel stations.
 """
 import urllib.request
 import json
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 from niveau1.src.point_collecte import PointCollecte
 

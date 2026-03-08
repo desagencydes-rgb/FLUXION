@@ -3,8 +3,6 @@ Implémente l'algorithme d'affectation des camions aux zones de collecte.
 Utilise une approche gloutonne puis un rééquilibrage heuristique.
 """
 import statistics
-from niveau2.src.camion import Camion
-from niveau2.src.zone import Zone
 from niveau1.src.graphe_routier import GrapheRoutier
 
 class AffectateurBiparti:
@@ -72,7 +70,8 @@ class AffectateurBiparti:
         """Vérifie le respect des capacités et de l'accessibilité."""
         for c_id, zone_ids in affectation.items():
             camion = self.camions.get(c_id)
-            if not camion: continue
+            if not camion:
+                continue
             
             # Verif capacité
             charge_totale = sum(self.zones[z_id].volume_estime for z_id in zone_ids)
@@ -95,7 +94,8 @@ class AffectateurBiparti:
             for c_id, z_ids in affectation.items():
                 charges[c_id] = sum(self.zones[z].volume_estime for z in z_ids)
             
-            if not charges: break
+            if not charges:
+                break
             
             max_c_id = max(charges, key=charges.get)
             min_c_id = min(charges, key=charges.get)

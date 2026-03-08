@@ -1,7 +1,6 @@
 """
 Définit la classe Tournee, représentant la séquence de points visités par un camion.
 """
-from commun.outils_math import distance_euclidienne
 from commun.constantes import VITESSE_MOYENNE_KMH, TEMPS_SERVICE_MINUTES
 
 class Tournee:

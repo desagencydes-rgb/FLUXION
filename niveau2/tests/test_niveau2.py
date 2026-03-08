@@ -1,4 +1,3 @@
-import pytest
 from niveau2.src.affectateur_biparti import AffectateurBiparti
 from niveau2.src.camion import Camion
 from niveau2.src.zone import Zone

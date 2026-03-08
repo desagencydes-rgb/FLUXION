@@ -9,7 +9,6 @@ import sys
 # Ajout du chemin racine pour les imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from niveau4.src.tournee import Tournee
 from niveau4.src.optimiseur_vrp import OptimiseurVRP
 from niveau4.src.visualiseur_tournees import VisualiseurTournees
 from niveau1.src.graphe_routier import GrapheRoutier

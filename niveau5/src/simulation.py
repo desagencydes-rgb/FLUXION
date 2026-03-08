@@ -3,7 +3,6 @@ Composant de simulation temps réel pour le système de collecte de déchets.
 Simule des capteurs IoT sur les bacs et des événements imprévus (pannes).
 """
 import random
-import time
 from commun.constantes import CO2_KG_PAR_LITRE, CONSOMMATION_L_PAR_KM
 
 class CapteurIoT:
@@ -133,7 +132,7 @@ class SimulateurTempsReel:
                     "type": "RULE_ENFORCED",
                     "zone_id": z.id,
                     "niveau": nouveau_niveau,
-                    "message": f"Constraint triggered: Buffer Overflow. Routing penalized for C_Max(b)."
+                    "message": "Constraint triggered: Buffer Overflow. Routing penalized for C_Max(b)."
                 })
         
         # 2. Simulation d'événements aléatoires (ex: Panne Camion)

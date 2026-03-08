@@ -5,8 +5,6 @@ Covers GPS snapping, RBAC enforcement, and data client parsing.
 import unittest
 import sys
 import os
-import json
-from unittest.mock import patch, MagicMock
 
 # Ensure project root is importable
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -95,7 +93,7 @@ class TestRBAC(unittest.TestCase):
         self.assertTrue(check_permission("driver", required))
 
     def test_health_open(self):
-        from live_bridge.rbac import get_required_role, check_permission
+        from live_bridge.rbac import get_required_role
         required = get_required_role("/live/health")
         self.assertEqual(required, "driver")
 

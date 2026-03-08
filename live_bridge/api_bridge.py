@@ -25,9 +25,9 @@ from live_bridge.overpass_client import (
     fetch_fuel_stations, osm_nodes_to_points
 )
 from live_bridge.geoapify_client import (
-    fetch_pois, fetch_all_priority_pois, pois_to_points
+    fetch_pois, fetch_all_priority_pois
 )
-from live_bridge.gps_snapper import snap_to_graph, snap_multiple
+from live_bridge.gps_snapper import snap_multiple
 from live_bridge.rbac import RBACMiddleware
 
 from niveau1.src.graphe_routier import GrapheRoutier

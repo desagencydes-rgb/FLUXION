@@ -4,7 +4,6 @@ Organise l'affectation spatiale dans un calendrier temporel cohérent.
 """
 from niveau2.src.affectateur_biparti import AffectateurBiparti
 from niveau3.src.contrainte_temporelle import ContrainteTemporelle
-from niveau3.src.creneau_horaire import CreneauHoraire
 
 class PlanificateurTriparti:
     """

@@ -9,16 +9,16 @@ import random
 from datetime import date, timedelta
 from dotenv import load_dotenv
 
-# Ensure we can import from commun and live_bridge
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-load_dotenv()
-
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from commun.database import (
-    Base, Organization, User, CamionDB, PointCollecteDB, SavingsLog
+    Organization, User, CamionDB, PointCollecteDB, SavingsLog
 )
 from live_bridge.auth import hash_password
+
+# Ensure we can import from commun and live_bridge
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:

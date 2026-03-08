@@ -1,5 +1,4 @@
 import pytest
-from datetime import datetime
 from niveau3.src.planificateur_triparti import PlanificateurTriparti
 from niveau3.src.creneau_horaire import CreneauHoraire
 from niveau3.src.contrainte_temporelle import ContrainteTemporelle
@@ -19,7 +18,7 @@ def test_night_ban_constraint():
     """a) Night ban: no collections scheduled between 22:00 and 06:00."""
     # We'll mark Zone 1 as having a night ban restriction
     # In niveau3/src/contrainte_temporelle.py, the check is based on zones_interdites_nuit set
-    trucks, zones, affectateur = [Camion(1, 10000, 100, [1])], [Zone(1, [], 100, 0, 0)], AffectateurBiparti([Camion(1, 10000, 100, [1])], [Zone(1, [], 100, 0, 0)])
+    AffectateurBiparti([Camion(1, 10000, 100, [1])], [Zone(1, [], 100, 0, 0)])
     
     contraintes = ContrainteTemporelle()
     contraintes.zones_interdites_nuit.add(1)
@@ -74,6 +73,6 @@ def test_full_coverage_24h():
     ]
     
     planificateur = PlanificateurTriparti(affectateur, contraintes=ContrainteTemporelle(), creneaux=slots)
-    plan = planificateur.generer_plan_optimal(1)
+    planificateur.generer_plan_optimal(1)
     
 
